@@ -1,5 +1,5 @@
 import { setCookie, getCookie } from './cookie';
-import { TIngredient, TOrder, TOrdersData, TUser } from './types';
+import { TIngredient, TOrder, TUser } from './types';
 
 const URL = process.env.BURGER_API_URL;
 
@@ -71,14 +71,17 @@ type TOrdersResponse = TServerResponse<{
   data: TOrder[];
 }>;
 
+
+// Получение ингредиентов с API
 export const getIngredientsApi = () =>
   fetch(`${URL}/ingredients`)
     .then((res) => checkResponse<TIngredientsResponse>(res))
     .then((data) => {
-      if (data?.success) return data.data;
+      if (data?.success)  return data.data as TIngredient[];
       return Promise.reject(data);
     });
 
+// Получение ленты заказов с API
 export const getFeedsApi = () =>
   fetch(`${URL}/orders/all`)
     .then((res) => checkResponse<TFeedsResponse>(res))
@@ -153,7 +156,11 @@ export const registerUserApi = (data: TRegisterData) =>
   })
     .then((res) => checkResponse<TAuthResponse>(res))
     .then((data) => {
-      if (data?.success) return data;
+      if (data?.success) {
+        localStorage.setItem('refreshToken', data.refreshToken);
+        setCookie('accessToken', data.accessToken);
+        return data;
+      }
       return Promise.reject(data);
     });
 
@@ -172,7 +179,11 @@ export const loginUserApi = (data: TLoginData) =>
   })
     .then((res) => checkResponse<TAuthResponse>(res))
     .then((data) => {
-      if (data?.success) return data;
+      if (data?.success) {
+        localStorage.setItem('refreshToken', data.refreshToken);
+        setCookie('accessToken', data.accessToken);
+        return data
+      };
       return Promise.reject(data);
     });
 
@@ -223,13 +234,16 @@ export const updateUserApi = (user: Partial<TRegisterData>) =>
     body: JSON.stringify(user)
   });
 
-export const logoutApi = () =>
-  fetch(`${URL}/auth/logout`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({
-      token: localStorage.getItem('refreshToken')
-    })
-  }).then((res) => checkResponse<TServerResponse<{}>>(res));
+  export const logoutApi = () =>
+    fetch(`${URL}/auth/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        token: localStorage.getItem('refreshToken')
+      })
+    }).then((res) => {
+      setCookie('accessToken', '');
+      return res;
+    });
