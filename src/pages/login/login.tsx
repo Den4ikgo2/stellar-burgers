@@ -17,7 +17,7 @@ export const Login: FC = () => {
     dispatch(loginUser({email: email, password: password}))
   };
 
-  const isAuth = useSelector((state: RootState) => state.userInfo.isAuthChecked)
+  const isAuth = useSelector((state) => state.userInfo.isAuthChecked)
 
   if(isAuth){
     return <ConstructorPage />

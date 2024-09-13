@@ -18,7 +18,7 @@ export const Register: FC = () => {
     );
   };
 
-  const isAuth = useSelector((state: RootState) => state.userInfo.isAuthChecked)
+  const isAuth = useSelector((state) => state.userInfo.isAuthChecked)
 
   if(isAuth){
     return <ConstructorPage />

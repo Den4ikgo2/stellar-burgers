@@ -14,7 +14,7 @@ export const Profile: FC = () => {
     dispatch(getOrderList());
   });
 
-  const user = useSelector((state: RootState) => state.userInfo.user);
+  const user = useSelector((state) => state.userInfo.user);
 
   const [formValue, setFormValue] = useState({
     name: user.name,

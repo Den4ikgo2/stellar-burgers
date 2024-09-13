@@ -15,7 +15,7 @@ export const Feed: FC = () => {
   });
 
   const orders: TOrder[] = useSelector(
-    (state:RootState) => state.feeds.feeds.orders
+    (state) => state.feeds.feeds.orders
   );
 
   if (!orders.length) {

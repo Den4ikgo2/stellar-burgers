@@ -8,7 +8,7 @@ import { useSelector } from '../../services/store';
 
 export const BurgerIngredients: FC = () => {
   const ingredients = useSelector(
-    (state: RootState) => state.ingredients.ingredients
+    (state) => state.ingredients.ingredients
   );
 
   const buns: TIngredient[] = [];

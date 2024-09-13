@@ -8,10 +8,10 @@ import { clearOrder, orderBurger } from '../../services/Slices/orderSlice'
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const constructorItems = useSelector((state: RootState) => state.constructorBurger)
+  const constructorItems = useSelector((state) => state.constructorBurger)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const isAuth = useSelector((state: RootState) => state.userInfo.isAuthChecked)
+  const isAuth = useSelector((state) => state.userInfo.isAuthChecked)
   let order: string[] = []
 
   const orderRequest = false;
