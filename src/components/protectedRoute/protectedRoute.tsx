@@ -9,17 +9,26 @@ type ProtectedRouteProps = {
   children: React.ReactElement;
 };
 
-export const ProtectedRoute = ({
+export default function ProtectedRoute({
   children,
   authUser = false
-}: ProtectedRouteProps) => {
+}: ProtectedRouteProps) {
+  const isLoggedIn = useSelector((store) => store.userInfo.isAuthChecked);
 
   const location = useLocation();
-  const isAuth = useSelector((state) => state.userInfo.isAuthChecked)
-
-  if(!isAuth && !authUser) {
-    return <Navigate replace to='/login' state={{ from: location}}/>
+  const from = location.state?.from || '/';
+  // Если разрешен неавторизованный доступ, а пользователь авторизован...
+  if (authUser && isLoggedIn) {
+    // ...то отправляем его на предыдущую страницу
+    return <Navigate to={from} />;
   }
 
+  // Если требуется авторизация, а пользователь не авторизован...
+  if (!authUser && !isLoggedIn) {
+    // ...то отправляем его на страницу логин
+    return <Navigate to='/login' state={{ from: location }} />;
+  }
+
+  // Если все ок, то рендерим внутреннее содержимое
   return children;
-};
+}

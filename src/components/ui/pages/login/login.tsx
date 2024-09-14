@@ -7,7 +7,6 @@ import {
 import styles from '../common.module.css';
 import { Link } from 'react-router-dom';
 import { LoginUIProps } from './type';
-import { ProtectedRoute } from '../../../protectedRoute/protectedRoute';
 
 export const LoginUI: FC<LoginUIProps> = ({
   email,

@@ -25,7 +25,7 @@ import { RootState, useDispatch } from '../../services/store';
 
 import { getIngredients } from '../../services/Slices/IngredientsSlice';
 import { useEffect } from 'react';
-import { ProtectedRoute } from '../protectedRoute/protectedRoute';
+import  ProtectedRoute  from '../protectedRoute/protectedRoute';
 import { checkUser } from '../../services/Slices/userSlice';
 
 const App = () => {

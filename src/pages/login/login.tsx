@@ -1,9 +1,7 @@
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
-import { RootState, useDispatch, useSelector } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { loginUser } from '../../services/Slices/userSlice';
-import { Navigate, NavLink } from 'react-router-dom';
-import { ProtectedRoute } from 'src/components/protectedRoute/protectedRoute';
 import { ConstructorPage } from '../constructor-page';
 
 export const Login: FC = () => {
