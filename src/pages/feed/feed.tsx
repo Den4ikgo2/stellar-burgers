@@ -11,7 +11,7 @@ export const Feed: FC = () => {
 
   useEffect(() => {
     dispatch(getFeeds());
-  });
+  },[]);
 
   const orders: TOrder[] = useSelector(
     (state) => state.feeds.feeds.orders

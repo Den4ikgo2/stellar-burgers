@@ -12,7 +12,7 @@ export const Profile: FC = () => {
 
   useEffect(() => {
     dispatch(getOrderList());
-  });
+  },[]);
 
   const user = useSelector((state) => state.userInfo.user);
 

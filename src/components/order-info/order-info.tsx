@@ -21,9 +21,11 @@ export const OrderInfo: FC = () => {
   });
 
   useEffect(() => {
-    getOrderByNumberApi(id).then((data) => {
-      setOrderData(data.orders[0]);
-    });
+    getOrderByNumberApi(id)
+      .then((data) => {
+        setOrderData(data.orders[0]);
+      })
+      .catch(console.error);
   }, [id]);
 
   const ingredients: TIngredient[] = useSelector(
