@@ -33,7 +33,7 @@ export const updateUser = createAsyncThunk(
   updateUserApi
 )
 
-const initialState: User = {
+export const initialState: User = {
   isAuthChecked: false,
   error: null,
   user: {

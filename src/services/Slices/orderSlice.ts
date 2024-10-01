@@ -14,7 +14,7 @@ export const orderBurger = createAsyncThunk(
   orderBurgerApi
 );
 
-const initialState: NewOrder = {
+export const initialState: NewOrder = {
   order: null,
   name: '',
   orderRequest: false

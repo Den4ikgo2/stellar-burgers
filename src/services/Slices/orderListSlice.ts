@@ -11,7 +11,7 @@ export const getOrderList = createAsyncThunk(
   getOrdersApi
 );
 
-const initialState: OrderList = {
+export const initialState: OrderList = {
   orders: []
 };
 
