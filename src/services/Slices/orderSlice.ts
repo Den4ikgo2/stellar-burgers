@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '../../utils/types';
-import { BlobOptions } from 'buffer';
 import { orderBurgerApi } from '../../utils/burger-api';
 
 type NewOrder = {

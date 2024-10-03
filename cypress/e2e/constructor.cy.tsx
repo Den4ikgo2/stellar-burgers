@@ -1,15 +1,21 @@
 describe('Тестирование конструктора бургера', () => {
+
+  const chooseBuns = 'Выберите булки'
+  const chooseFilling = 'Выберите начинку'
+  const Buns = 'Булки'
+  const filleng = 'Начинки'
+
   // Выполнение перхватов запросов перед посещением страницы
   before(() => {
     // Перехват запроса на получения ингредиентов с сервера
-    cy.intercept('GET', 'https://norma.nomoreparties.space/api/ingredients', {
+    cy.intercept('GET', 'api/ingredients', {
       fixture: 'ingredients.json'
     }).as(`${'ingredients'}`);
   });
 
   beforeEach('Авторизация пользователя', () => {
     // Перехват запрос на данные пользователя с сервера
-    cy.intercept('GET', 'https://norma.nomoreparties.space/api/auth/user', {
+    cy.intercept('GET', 'api/auth/user', {
       fixture: 'user.json'
     }).as(`${'user'}`);
     // Тестирование куки и токена
@@ -30,21 +36,21 @@ describe('Тестирование конструктора бургера', () 
 
   describe('Тестирование добавления ингредиентов в конструктор', () => {
     it('Добавление булок в конструктор', () => {
-      cy.get('div').contains('Выберите булки').should('exist');
-      cy.get('h3').contains('Булки').next('ul').contains('Добавить').click();
-      cy.get('div').contains('Выберите булки').should('not.exist');
+      cy.get('div').contains(chooseBuns).should('exist');
+      cy.get('h3').contains(Buns).next('ul').contains('Добавить').click();
+      cy.get('div').contains(chooseBuns).should('not.exist');
     });
 
     it('Добавление начинок в конструктор', () => {
-      cy.get('div').contains('Выберите начинку').should('exist');
-      cy.get('h3').contains('Начинки').next('ul').contains('Добавить').click();
-      cy.get('div').contains('Выберите начинку').should('not.exist');
+      cy.get('div').contains(chooseFilling).should('exist');
+      cy.get('h3').contains(filleng).next('ul').contains('Добавить').click();
+      cy.get('div').contains(chooseFilling).should('not.exist');
     });
 
     it('Добавление соусов в конструктор', () => {
-      cy.get('div').contains('Выберите начинку').should('exist');
+      cy.get('div').contains(chooseFilling).should('exist');
       cy.get('h3').contains('Соусы').next('ul').contains('Добавить').click();
-      cy.get('div').contains('Выберите начинку').should('not.exist');
+      cy.get('div').contains(chooseFilling).should('not.exist');
     });
   });
 
@@ -68,13 +74,13 @@ describe('Тестирование конструктора бургера', () 
     it('Сбор бургера и оформление заказа', () => {
       cy.contains('user').should('exist');
       // Перехват обращения к API
-      cy.intercept('POST', 'https://norma.nomoreparties.space/api/orders', {
+      cy.intercept('POST', 'api/orders', {
         fixture: 'order.json'
       }).as(`${'order'}`);
 
       //Сбор бургера
-      cy.get('h3').contains('Булки').next('ul').contains('Добавить').click();
-      cy.get('h3').contains('Начинки').next('ul').contains('Добавить').click();
+      cy.get('h3').contains(Buns).next('ul').contains('Добавить').click();
+      cy.get('h3').contains(filleng).next('ul').contains('Добавить').click();
       cy.get('h3').contains('Соусы').next('ul').contains('Добавить').click();
 
       //Нажатие на кнопку оформить заказ
@@ -90,8 +96,8 @@ describe('Тестирование конструктора бургера', () 
       cy.get(`body`).type('{esc}');
 
       //Проверка что консутруктор пуст
-      cy.get('div').contains('Выберите начинку').should('exist');
-      cy.get('div').contains('Выберите булки').should('exist');
+      cy.get('div').contains(chooseFilling).should('exist');
+      cy.get('div').contains(chooseBuns).should('exist');
 
     });
   });
